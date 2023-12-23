@@ -12,3 +12,7 @@ class Moons:
        
         query = "SELECT * FROM moons"
         self.data = pd.read_sql(query, self.connectable)
+
+    def stats(self):
+
+	return self.data.describe()
