@@ -8,7 +8,7 @@ class Moons:
         self.connectable = f"{database_service}:///{db}"
         self.load_data()
     
-    def load_data(self):
+    def sql_table(self):
        
         query = "SELECT * FROM moons"
         self.data = pd.read_sql(query, self.connectable)
