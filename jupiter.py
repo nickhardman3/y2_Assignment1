@@ -16,3 +16,17 @@ class Moons:
     def stats(self):
 
 	return self.data.describe()
+
+    def plot(self):
+        
+        plt.scatter(self.data['distance_km'], self.data['period_days'])
+        plt.xlabel('Distance from Jupiter (km)')
+        plt.ylabel('Orbital Period (days)')
+        plt.title('Distance vs. Orbital Period for Jupiter\'s Moons')
+        plt.show()
+
+    def moon(self, moon_name):
+        
+        moon_data = self.data[self.data['moon'] == moon_name]
+
+        return moon_data
