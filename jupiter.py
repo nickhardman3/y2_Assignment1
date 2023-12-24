@@ -25,14 +25,6 @@ class Moons:
 	corrdp2 = corrdp.round(decimal_places)
 	return corrdp2
 
-    def plot_corr(self):
-        
-        plt.scatter(self.data['distance_km'], self.data['period_days'])
-        plt.xlabel('Distance from Jupiter (km)')
-        plt.ylabel('Orbital Period (days)')
-        plt.title('Distance vs. Orbital Period for Jupiter\'s Moons')
-        plt.show()
-
     def plot_hist(self):
         plt.hist(self.data['distance_km'], bins=20, color='skyblue', edgecolor='black')
         plt.title('Distribution of Moon Distances from Jupiter')
