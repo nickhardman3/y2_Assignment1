@@ -17,6 +17,10 @@ class Moons:
 
 	return self.data.describe()
 
+    def correlations(self):
+
+        return self.data.corr()
+
     def plot(self):
         
         plt.scatter(self.data['distance_km'], self.data['period_days'])
