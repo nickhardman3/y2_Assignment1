@@ -13,13 +13,17 @@ class Moons:
         query = "SELECT * FROM moons"
         self.data = pd.read_sql(query, self.connectable)
 
-    def stats(self):
+    def stats(self, decimal_places=2):
 
-	return self.data.describe()
+	statdp = self.data.describe()
+	statdp2 = statdp.round(decimal_places)
+	return statdp2
 
-    def correlations(self):
+    def correlations(self, decimal_places=2):
 
-        return self.data.corr()
+        corrdp = self.data.corr()
+	corrdp2 = corrdp.round(decimal_places)
+	return corrdp2
 
     def plot_corr(self):
         
