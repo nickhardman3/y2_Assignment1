@@ -40,6 +40,18 @@ class Moons:
         plt.ylabel('Frequency')
         plt.show()
 
+
+    def group_plot(self):
+        groups = self.data['group'].unique()
+        for group in groups:
+            group_data = self.data[self.data['group'] == group]
+            plt.scatter(group_data['period_days'], group_data['distance_km'], label=group)
+        plt.xlabel('Period Days')
+        plt.ylabel('Distance km')
+        plt.legend(title='Groups', loc='lower right')
+        plt.title('Scatter Plot of Period Days vs Distance km by Group')
+        plt.show()
+
     def moon(self, moon_name):
         
         moon_data = self.data[self.data['moon'] == moon_name]
