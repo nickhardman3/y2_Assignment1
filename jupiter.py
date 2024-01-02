@@ -49,6 +49,8 @@ class Moons:
 		plt.legend(title='Groups', loc='lower right')
 		plt.title('Scatter Plot of Period Days vs Distance km by Group')
 		plt.show() #plots a scatter graph of the distance of the moons to jupiter and the period days they have
+		sns.displot(data= self.data, x="distance_km", hue="group", col="group")
+		plt.show() #creastes individual histograms for eac type of moon
 
 	def moon(self, moon_name):
         
