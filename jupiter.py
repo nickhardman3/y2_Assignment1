@@ -57,9 +57,7 @@ class Moons:
 		return moon_data #allows individual moons to be searched for
 
 	def linear_regression_model(self):
-        
-		%matplotlib inline
-        
+               
 		self.data['T_seconds'] = self.data['period_days'] * 24 * 60 * 60 #converts period days into period seconds, the variable T
 		self.data['T2'] = self.data['T_seconds'] **2 #squares T to produce T^2
 		self.data['a_m'] = self.data['distance_km'] * 1000 #turns the variable a to metres from kilometres
