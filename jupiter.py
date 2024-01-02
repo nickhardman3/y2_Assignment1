@@ -60,18 +60,18 @@ class Moons:
         
 		%matplotlib inline
         
-		self.data['T_seconds'] = self.data['period_days'] * 24 * 60 * 60 #converts 
-		self.data['T2'] = self.data['T_seconds'] **2
-		self.data['a_m'] = self.data['distance_km'] * 1000
-		self.data['a3'] = self.data['a_m'] **3
+		self.data['T_seconds'] = self.data['period_days'] * 24 * 60 * 60 #converts period days into period seconds, the variable T
+		self.data['T2'] = self.data['T_seconds'] **2 #squares T to produce T^2
+		self.data['a_m'] = self.data['distance_km'] * 1000 #turns the variable a to metres from kilometres
+		self.data['a3'] = self.data['a_m'] **3 #cubes the variable a to make a^3
 		Y = self.data['T2'].values
-		X = self.data['a3'].values.reshape(-1, 1)
+		X = self.data['a3'].values.reshape(-1, 1) #reshaping to make a 2D array which is necessary
         
-		sns.regplot(data=self.data, y='T2', x='a3', scatter_kws={'s': 15}, line_kws = {'linewidth': 1})
+		sns.regplot(data=self.data, y='T2', x='a3', scatter_kws={'s': 15}, line_kws = {'linewidth': 1}) #plots a scatter graph of T^2 vs a^3, adjusting the size of the plots and line of best fit
 		plt.title("Scatter Plot")
 		plt.show()
 
-		sns.residplot(data=self.data, y='T2', x='a3')
+		sns.residplot(data=self.data, y='T2', x='a3') #creates a residual plot based off the scatter above
 		plt.title("Residual Plot")
 		plt.show()
         
@@ -81,15 +81,15 @@ class Moons:
 		from sklearn.model_selection import train_test_split
 		x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.3, random_state=42)
 
-		model = linear_model.LinearRegression(fit_intercept= False) #hyperparameter set here as I made fit_intercept= False, this is so the linear 
+		model = linear_model.LinearRegression(fit_intercept= False) #hyperparameter set here as I made fit_intercept= False, this is so the line of best fit passes through the origin, as a3 and t2 are proportional as well as keplers third law equation having no c value
 
 		model.fit(x_train,y_train)
         
-		pred = model.predict(x_test)
+		pred = model.predict(x_test) #creates a prediction of the x_test
 
 		f, a0 = plt.subplots(figsize=(15, 15))
-		a0.scatter(self.data["a3"], self.data["T2"], label="Actual")        
-		a0.plot(x_test.flatten(), pred.flatten(), 'r--', label="Predicted")
+		a0.scatter(self.data["a3"], self.data["T2"], label="Actual") #plots a scatter of t2 vs a3, 'actual' values
+		a0.plot(x_test.flatten(), pred.flatten(), 'r--', label="Predicted") #plots the line of best fit using the 'prediction' values
 
 		plt.title("Scatter Plot with Predicted Model")
 		plt.legend()
@@ -113,22 +113,22 @@ class Moons:
 
         
 		from sklearn.metrics import r2_score, mean_squared_error
-		print(f"unweighted model r2_score: {r2_score(y_test,pred)}")
-		print(f"unweighted model root mean squared error: {mean_squared_error(y_test,pred)}")
+		print(f"unweighted model r2_score: {r2_score(y_test,pred)}") #calculates the r2 value to show the correlations
+		print(f"unweighted model root mean squared error: {mean_squared_error(y_test,pred)}") #calculates root mean squared error
         
-		gradient = model.coef_[0]
+		gradient = model.coef_[0] #works out gradient of line of best fit
         
 		print("gradient from model: ", gradient)
-		print("intercept from model:", model.intercept_)
+		print("intercept from model:", model.intercept_) #works out y-intercept
 		print(f"root mean squared error: {mean_squared_error(y_test,pred, squared=False)}")
 	
 
-		print(f"4π/2GM is = {gradient}")
+		print(f"4π/2GM is = {gradient}") #applying the equation to the graph 
 		G = 6.67e-11 #m3kg−1s−2
-		pi = np.pi
-		M = (4*(pi)) / (2*(G)*(gradient))
+		pi = np.pi #pi value imported
+		M = (4*(pi)) / (2*(G)*(gradient)) #works out Mass of Jupiter in kg importing all other values into the equation
 		print(f"The predicted mass of jupiter from my model is: {M}kg")
-		actm =  1.899e+27 #kg
+		actm =  1.899e+27 #kg (actual mass of Jupiter)
 		print("The actual mass of jupiter is  1.899e+27 kg")
-		print(f"So the actual mass of jupiter is {((actm)/(M))} times heavier than my estimation")
+		print(f"So the actual mass of jupiter is {((actm)/(M))} times heavier than my estimation") #compares estimation to literature value
 	
